@@ -1,6 +1,9 @@
 # function format_field(i) {
 #   # For formatting every field of the CSV depending on the user's need
 #   switch (i) {
+#     case field_number:
+#       $field_number = transformation or replacement for field;
+#       break;
 #   }
 # }
 
