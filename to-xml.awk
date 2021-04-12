@@ -7,14 +7,27 @@
 #   }
 # }
 
-# ROT: ROot element Tag
-# RET: REcord element Tag
-BEGIN {FS = ",";OFS = "\n";ROT="Root";RET = "Record"}
+function is_in_array(value, arr) {
+  for (i in arr) {
+    if (arr[i] == value) {
+      return 1
+    }
+  }
+}
+
+BEGIN {FS = ",";OFS = "\n";ROT = "Root";RET = "Record";EFS = 0} 
+
+if (EFS != 0) {
+  split(EFS, unwanted_fields, ",")
+}
 
 NR == 1 {
   # Store the name of each column as tags for the xml document
   for (i = 1; i <= NF; i++) {
-    field_tags[i]=$i;
+    if (!is_in_array(i, unwanted_fields)) {
+	 print i;
+         field_tags[i]=$i;
+    }
   }
 
   # XML prolog
@@ -29,7 +42,9 @@ NR > 1 {
 
   for (i = 1; i <= NF; i++) {
     # format_field(i);
-    print "     <" field_tags[i] ">" $i "</" field_tags[i] ">";
+    if (!is_in_array(i, unwanted_fields)) {
+      print "     <" field_tags[i] ">" $i "</" field_tags[i] ">";
+    }
   }
   print "  </" RET ">"
 }

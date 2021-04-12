@@ -10,6 +10,8 @@ ROT (Root element tag): name of the root element for the XML output. By default 
 RET (Record element tag): name of the XML element that wraps every record of the CSV file on the XML output.
 By default is "Record".
 
+EFS (Excluded fields string): comma separated string that contains the index numbers of unwanted fields, i.e: "1,2,3" excludes the first, second and third fields of the CSV file from the output. By default is "0".
+
 You can set a parameter with the "v" flag, i.e: awk -f to-xml.awk -v RET='Main' file.csv > output.xml.
 
 The base of this Awk program was created by a moderator of the Unix and Linux
